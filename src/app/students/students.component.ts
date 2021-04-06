@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Student} from './../student';
 import {STUDENTS} from './../mock-student';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
@@ -10,16 +11,22 @@ import {Router} from '@angular/router';
 export class StudentsComponent implements OnInit {
 students = STUDENTS;
 selectedStudent:Student | undefined;
-  id: number | undefined;
-
-  constructor(private router: Router)
+  Router: any;
+  id: any;
+  studentId: number | undefined;
+  studentName : string | undefined;
+  constructor(private router: Router,private route: ActivatedRoute)
    { }
 
   ngOnInit(): void {
+    this.route.queryParamMap.subscribe(params=>{
+      this.studentId = this.route.snapshot.queryParams['id'];
+      this.studentName = this.route.snapshot.queryParams['name'];
+    });
   }
 onSelect(student: Student):void{
 this.selectedStudent = student;
-this.id = student.id;
-this.router.navigate(['/students',this.id])
+this.router.navigate(['/students'],{queryParams: {id: this.selectedStudent.id, name:this.selectedStudent.name}});
+
 }
 }
