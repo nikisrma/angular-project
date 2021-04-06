@@ -1,0 +1,45 @@
+<!-- <h2> Students</h2>
+<ul class="students">
+    <li *ngFor = "let student of students"
+    [class.selected]="student === selectedStudent" (click)="onSelect(student)">
+    <span class="badge">{{student.id}} </span><span>{{student.name}}</span><span>{{student.email}}</span></li>
+</ul> -->
+<h2> Students</h2>
+<table class="students">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>email</th>
+        <th>Action</th>
+    </tr>
+    <tr *ngFor = "let student of students"
+    [class.selected]="student === selectedStudent" (click)="onSelect(student)">
+    <td>{{student.id}} </td>
+    <td>{{student.name}}</td>
+    <td>{{student.email}}</td>
+    <td><button routerLink='/details' routerLinkActivate="active">View</button></td>
+    </tr>
+</table>
+<div *ngIf="selectedStudent">
+    <h2>
+         student Id {{selectedStudent.id}} Details</h2> 
+            <div>
+                <span>Id: </span> {{selectedStudent.id}}
+            </div>
+            <div>
+                <span>Name: </span> {{selectedStudent.name}}
+            </div>
+            <div>
+                <span>Email: </span> {{selectedStudent.email}}
+            </div>
+            <div>
+                <span>Address: </span> {{selectedStudent.address}}
+            </div>
+            <div>
+                <span>Father's Name: </span> {{selectedStudent.fatherName}}
+            </div>
+            <div>
+                <span>DOB: </span> {{selectedStudent.dob}}
+            </div>
+
+</div>
