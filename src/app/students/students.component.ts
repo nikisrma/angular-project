@@ -20,13 +20,18 @@ selectedStudent:Student | undefined;
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params=>{
-      this.studentId = this.route.snapshot.queryParams['id'];
-      this.studentName = this.route.snapshot.queryParams['name'];
-    });
+       this.studentId = this.route.snapshot.queryParams['id'];
+       this.studentName = this.route.snapshot.queryParams['name'];
+     });
   }
 onSelect(student: Student):void{
 this.selectedStudent = student;
 this.router.navigate(['/students'],{queryParams: {id: this.selectedStudent.id, name:this.selectedStudent.name}});
 
 }
+getData(student: Student):void{
+      this.selectedStudent = student;
+      this.router.navigate(['/studentDetail'],{queryParams: {id: this.selectedStudent.id,name:this.selectedStudent.name}});
+      
+      }
 }

@@ -1,23 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute } from '@angular/router';
+import {Student} from './../student';
+import {STUDENTS} from './../mock-student';
+import {ActivatedRoute, Router} from '@angular/router';
+
 @Component({
   selector: 'app-student-detail',
-  template: `
-    <h3>You selected student with id = {{studentId}}</h3>
-  `,
-  styles: [
-  ]
+  templateUrl: './student-detail.component.html',
+  styleUrls: ['./student-detail.component.css']
 })
 export class StudentDetailComponent implements OnInit {
+
+  students = STUDENTS;
+selectedStudent:Student | undefined;
+  Router: any;
+  id: any;
   studentId: number | undefined;
-
-  constructor(private route: ActivatedRoute) { }
-
-  ngOnInit(): void {
-  let id = Number(this.route.snapshot.paramMap.get('id'));
-  this.studentId = id;
-      
-  
+  studentName : string | undefined;
+  constructor(private router: Router,private route: ActivatedRoute)
+   { }
+   ngOnInit(): void {
+     this.route.queryParamMap.subscribe(params=>{
+      this.studentId = this.route.snapshot.queryParams['id'];
+      this.studentName = this.route.snapshot.queryParams['name'];
+      // console.log(this.studentId);
+    });
   }
 
-}
+
+    getData(student: Student):void{
+      this.selectedStudent = student;
+      this.router.navigate(['/studentDetail'],{queryParams: {id: this.selectedStudent.id,name:this.selectedStudent.name}});
+      
+      }
+  }
+
